@@ -40,8 +40,8 @@ initConfig() {
         echo "Configured $(date)" > ${OPENNMS_MINION_HOME}/etc/configured
 
         # Expose the RMI registry and server
-        sed -i "s,rmiRegistryHost.*,rmiRegistryHost=0.0.0.0,g" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
-        sed -i "s,rmiServerHost.*,rmiServerHost=0.0.0.0,g" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
+        sed -i "s,rmiRegistryHost.*,rmiRegistryHost=0.0.0.0,g" ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.management.cfg
+        sed -i "s,rmiServerHost.*,rmiServerHost=0.0.0.0,g" ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.management.cfg
     fi
 }
 
