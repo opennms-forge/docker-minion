@@ -1,7 +1,7 @@
 FROM indigo/centos-jdk8:latest
 MAINTAINER Ronny Trommer <ronny@opennms.org>
 
-#ENV OPENNMS_VERSION develop
+ENV OPENNMS_VERSION develop
 #ENV OPENNMS_MINION_HOME /opt/minion
 #ENV OPENNMS_LOCATION MINION
 #ENV OPENNMS_MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
