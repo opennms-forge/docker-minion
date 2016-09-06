@@ -38,8 +38,8 @@ initConfig() {
 }
 
 start() {
-    cd ${OPENNMS_MINION_HOME}/bin
-    exec ./karaf clean server
+    rm -rf ${OPENNMS_MINION_HOME}/data
+    ${OPENNMS_MINION_HOME}/bin/karaf clean server
 }
 
 # Evaluate arguments for build script.
