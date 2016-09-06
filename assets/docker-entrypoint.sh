@@ -29,7 +29,7 @@ initConfig() {
     fi
 
     if [ ! -f /opt/minion/etc/configured} ]; then
-        sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," /opt/minions/etc/org.apache.karaf.shell.cfg
+        sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," /opt/minion/etc/org.apache.karaf.shell.cfg
         sed -i "s,location = MINION,location = ${OPENNMS_LOCATION}," /opt/minion/etc/org.opennms.minion.controller.cfg
         echo "broker-url = ${OPENNMS_BROKER_URL}" >> /opt/minion/etc/org.opennms.minion.controller.cfg
         echo "http-url = ${OPENNMS_HTTP_URL}" >> /opt/minion/etc/org.opennms.minion.controller.cfg
