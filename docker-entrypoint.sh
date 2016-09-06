@@ -42,12 +42,14 @@ initConfig() {
         # Expose the RMI registry and server
         sed -i "s,rmiRegistryHost.*,rmiRegistryHost=0.0.0.0,g" ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.management.cfg
         sed -i "s,rmiServerHost.*,rmiServerHost=0.0.0.0,g" ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.management.cfg
+    else
+        echo "OpenNMS Minion is already configured, skipped."
     fi
 }
 
 start() {
     rm -rf ${OPENNMS_MINION_HOME}/data
-    ${OPENNMS_MINION_HOME}/bin/start
+    ${OPENNMS_HOME_MINION}/bin/karaf clean server
 }
 
 # Evaluate arguments for build script.
