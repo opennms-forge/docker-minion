@@ -29,11 +29,19 @@ initConfig() {
     fi
 
     if [ ! -f ${OPENNMS_MINION_HOME}/etc/configured} ]; then
+
+        # Expose Karaf Shell
         sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.shell.cfg
+
+        # Set Minion location and connection to OpenNMS instance
         sed -i "s,location = MINION,location = ${OPENNMS_LOCATION}," ${OPENNMS_MINION_CONFIG}
         echo "broker-url = ${OPENNMS_BROKER_URL}" >> ${OPENNMS_MINION_CONFIG}
         echo "http-url = ${OPENNMS_HTTP_URL}" >> ${OPENNMS_MINION_CONFIG}
         echo "Configured $(date)" > ${OPENNMS_MINION_HOME}/etc/configured
+
+        # Expose the RMI registry and server
+        sed -i "s,rmiRegistryHost.*,rmiRegistryHost=0.0.0.0,g" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
+        sed -i "s,rmiServerHost.*,rmiServerHost=0.0.0.0,g" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
     fi
 }
 
