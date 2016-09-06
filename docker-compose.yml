@@ -2,7 +2,9 @@ version: '2'
 services:
   minion:
     image: indigo/docker-minion
-    command: ["start"]
+    env_file:
+      - .minion.env
+    command: ["-f"]
     ports:
       - "8201:8201"
       - "18980:18980"
