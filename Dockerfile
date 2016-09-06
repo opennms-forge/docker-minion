@@ -13,11 +13,13 @@ RUN rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-${OPENNMS_VERSION}-rh
     rpm --import http://yum.opennms.org/OPENNMS-GPG-KEY && \
     yum -y install opennms-minion
 
+COPY ./docker-entrypoint.sh /
+
 WORKDIR /opt/minion/bin
 
-ENTRYPOINT ["./karaf"]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
-CMD ["status"]
+CMD [ "-h" ]
 
 ##------------------------------------------------------------------------------
 ## EXPOSED PORTS
