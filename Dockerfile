@@ -27,10 +27,3 @@ CMD ["status"]
 ## -- SNMP Trapd           162/UDP
 ## -- Syslog               514/UDP
 EXPOSE 8201 18980 162/udp 514/udp
-
-
-
-location = Fulda
-id = b17a11b4-741b-11e6-9c50-0242ac110003
-broker-url = tcp://172.24.23.103:61616
-http-url = http://172.24.23.103:8980/opennms
