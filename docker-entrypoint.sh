@@ -23,22 +23,22 @@ usage() {
 }
 
 initConfig() {
-    if [ ! -d /opt/minion ]; then
-        echo "OpenNMS Minion home directory doesn't exist in /opt/minion."
+    if [ ! -d ${OPENNMS_MINION_HOME} ]; then
+        echo "OpenNMS Minion home directory doesn't exist in ${OPENNMS_MINION_HOME}."
         exit ${E_ILLEGAL_ARGS}
     fi
 
-    if [ ! -f /opt/minion/etc/configured} ]; then
-        sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," /opt/minion/etc/org.apache.karaf.shell.cfg
-        sed -i "s,location = MINION,location = ${OPENNMS_LOCATION}," /opt/minion/etc/org.opennms.minion.controller.cfg
-        echo "broker-url = ${OPENNMS_BROKER_URL}" >> /opt/minion/etc/org.opennms.minion.controller.cfg
-        echo "http-url = ${OPENNMS_HTTP_URL}" >> /opt/minion/etc/org.opennms.minion.controller.cfg
-        echo "Configured $(date)" > /opt/minion/etc/configured
+    if [ ! -f ${OPENNMS_MINION_HOME}/etc/configured} ]; then
+        sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.shell.cfg
+        sed -i "s,location = MINION,location = ${OPENNMS_LOCATION}," ${OPENNMS_MINION_CONFIG}
+        echo "broker-url = ${OPENNMS_BROKER_URL}" >> ${OPENNMS_MINION_CONFIG}
+        echo "http-url = ${OPENNMS_HTTP_URL}" >> ${OPENNMS_MINION_CONFIG}
+        echo "Configured $(date)" > ${OPENNMS_MINION_HOME}/etc/configured
     fi
 }
 
 start() {
-    cd /opt/minion/bin
+    cd ${OPENNMS_MINION_HOME}/bin
     exec ./start
 }
 
