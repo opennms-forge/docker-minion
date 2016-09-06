@@ -39,7 +39,7 @@ initConfig() {
 
 start() {
     cd ${OPENNMS_MINION_HOME}/bin
-    exec ./start
+    exec ./karaf clean server
 }
 
 # Evaluate arguments for build script.
@@ -54,7 +54,6 @@ while getopts fhis flag; do
         f)
             initConfig
             start
-            exit
             ;;
         h)
             usage
