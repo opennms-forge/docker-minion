@@ -28,12 +28,12 @@ initConfig() {
         exit ${E_ILLEGAL_ARGS}
     fi
 
-    if [ ! -f ${OPENNMS_MINION_CONFIG_DIR/configured} ]; then
-        sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," ${OPENNMS_MINION_CONFIG_DIR}/org.apache.karaf.shell.cfg
+    if [ ! -f ${OPENNMS_MINION_HOME}/etc/configured} ]; then
+        sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.shell.cfg
         sed -i "s,location = MINION,location = ${OPENNMS_LOCATION}," ${OPENNMS_MINION_CONFIG}
         echo "broker-url = ${OPENNMS_BROKER_URL}" >> ${OPENNMS_MINION_CONFIG}
         echo "http-url = ${OPENNMS_HTTP_URL}" >> ${OPENNMS_MINION_CONFIG}
-        echo "Configured $(date)" > ${OPENNMS_MINION_CONFIG_DIR}/configured
+        echo "Configured $(date)" > ${OPENNMS_MINION_HOME}/etc/configured
     fi
 }
 
