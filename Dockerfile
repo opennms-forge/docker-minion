@@ -4,8 +4,7 @@ MAINTAINER Ronny Trommer <ronny@opennms.org>
 ENV OPENNMS_VERSION develop
 ENV OPENNMS_MINION_HOME /opt/minion
 ENV OPENNMS_LOCATION MINION
-ENV OPENNMS_MINION_CONFIG ${OPENNMS_MINION_HOME}/etc/org.opennms.minion.controller.cfg
-ENV OPENNMS_MINION_CONFIG_DIR ${OPENNMS_MINION_HOME}/etc
+ENV OPENNMS_MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
 ENV OPENNMS_BROKER_URL tcp://127.0.0.1:61616
 ENV OPENNMS_HTTP_URL tcp://127.0.0.1:8980/opennms
 
