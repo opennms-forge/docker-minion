@@ -4,6 +4,9 @@ services:
     image: indigo/docker-minion
     env_file:
       - .minion.env
+    volumes:
+        - /opt/minion/etc
+        - /opt/minion/data
     command: ["-f"]
     ports:
       - "8201:8201"

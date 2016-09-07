@@ -7,8 +7,6 @@
 #
 # =====================================================================
 
-START_DELAY=5
-
 # Error codes
 E_ILLEGAL_ARGS=126
 
@@ -23,34 +21,34 @@ usage() {
 }
 
 initConfig() {
-    if [ ! -d ${OPENNMS_MINION_HOME} ]; then
-        echo "OpenNMS Minion home directory doesn't exist in ${OPENNMS_MINION_HOME}."
+    if [ ! -d ${MINION_HOME} ]; then
+        echo "OpenNMS Minion home directory doesn't exist in ${MINION_HOME}."
         exit ${E_ILLEGAL_ARGS}
     fi
 
-    if [ ! -f ${OPENNMS_MINION_HOME}/etc/configured} ]; then
+    if [ ! -f ${MINION_HOME}/etc/configured} ]; then
 
         # Expose Karaf Shell
-        sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.shell.cfg
+        sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," ${MINION_HOME}/etc/org.apache.karaf.shell.cfg
 
         # Set Minion location and connection to OpenNMS instance
-        sed -i "s,location = MINION,location = ${OPENNMS_LOCATION}," ${OPENNMS_MINION_CONFIG}
-        echo "broker-url = ${OPENNMS_BROKER_URL}" >> ${OPENNMS_MINION_CONFIG}
-        echo "http-url = ${OPENNMS_HTTP_URL}" >> ${OPENNMS_MINION_CONFIG}
-        echo "Configured $(date)" > ${OPENNMS_MINION_HOME}/etc/configured
+        sed -i "s,location = MINION,location = ${MINION_LOCATION}," ${MINION_CONFIG}
+        echo "broker-url = ${OPENNMS_BROKER_URL}" >> ${MINION_CONFIG}
+        echo "http-url = ${OPENNMS_HTTP_URL}" >> ${MINION_CONFIG}
+        echo "Configured $(date)" > ${MINION_HOME}/etc/configured
 
         # Expose the RMI registry and server
-        sed -i "s,rmiRegistryHost.*,rmiRegistryHost=0.0.0.0,g" ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.management.cfg
-        sed -i "s,rmiServerHost.*,rmiServerHost=0.0.0.0,g" ${OPENNMS_MINION_HOME}/etc/org.apache.karaf.management.cfg
+        sed -i "s,rmiRegistryHost.*,rmiRegistryHost=0.0.0.0,g" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
+        sed -i "s,rmiServerHost.*,rmiServerHost=0.0.0.0,g" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
     else
         echo "OpenNMS Minion is already configured, skipped."
     fi
 }
 
 start() {
-    rm -rf ${OPENNMS_MINION_HOME}/data
-    cd ${OPENNMS_MINION_HOME}/bin
-    ./karaf clean server
+    rm -rf ${MINION_HOME}/data
+    cd ${MINION_HOME}/bin
+    ./karaf server
 }
 
 # Evaluate arguments for build script.
