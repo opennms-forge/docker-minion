@@ -35,6 +35,7 @@ initConfig() {
         sed -i "s,location = MINION,location = ${MINION_LOCATION}," ${MINION_CONFIG}
         echo "broker-url = ${OPENNMS_BROKER_URL}" >> ${MINION_CONFIG}
         echo "http-url = ${OPENNMS_HTTP_URL}" >> ${MINION_CONFIG}
+        echo "id = ${MINION_ID}" >> ${MINION_CONFIG}
         echo "Configured $(date)" > ${MINION_HOME}/etc/configured
 
         # Expose the RMI registry and server
