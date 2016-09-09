@@ -46,7 +46,6 @@ initConfig() {
 }
 
 start() {
-    rm -rf ${MINION_HOME}/data
     cd ${MINION_HOME}/bin
     ./karaf server
 }
