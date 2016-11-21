@@ -17,6 +17,8 @@ COPY ./docker-entrypoint.sh /
 
 VOLUME [ "/opt/minion/etc", "/opt/minion/data" ]
 
+HEALTHCHECK --interval=10s --timeout=3s CMD /opt/minion/bin/client ping | grep -Pzo "(?s).*OK.*.OK.*" || exit 1
+
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 CMD [ "-h" ]
