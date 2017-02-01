@@ -2,7 +2,7 @@ FROM opennms/openjdk:8u121-jdk
 
 MAINTAINER Ronny Trommer <ronny@opennms.org>
 
-ARG OPENNMS_VERSION=develop
+ARG MINION_VERSION=develop
 
 ENV MINION_HOME /opt/minion
 ENV MINION_LOCATION MINION
