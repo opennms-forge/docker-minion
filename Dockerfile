@@ -1,7 +1,9 @@
-FROM indigo/centos-jdk8:latest
+FROM opennms/openjdk:8u121-jdk
+
 MAINTAINER Ronny Trommer <ronny@opennms.org>
 
-ENV MINION_VERSION develop
+ARG OPENNMS_VERSION=develop
+
 ENV MINION_HOME /opt/minion
 ENV MINION_LOCATION MINION
 ENV MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
