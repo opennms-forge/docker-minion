@@ -11,9 +11,11 @@ ENV MINION_ID 00000000-0000-0000-0000-deadbeef0001
 ENV OPENNMS_BROKER_URL tcp://127.0.0.1:61616
 ENV OPENNMS_HTTP_URL http://127.0.0.1:8980/opennms
 
-RUN rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-${MINION_VERSION}-rhel7.noarch.rpm && \
+RUN yum -y --setopt=tsflags=nodocs update && \
+    rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-${MINION_VERSION}-rhel7.noarch.rpm && \
     rpm --import http://yum.opennms.org/OPENNMS-GPG-KEY && \
-    yum -y install opennms-minion
+    yum -y install opennms-minion && \
+    yum clean all
 
 COPY ./docker-entrypoint.sh /
 
