@@ -1,18 +1,23 @@
 ## Supported tags
 
 * `latest`, latest develop release Horizon 20
-* `19.0.0-1`, release candidate for Horizon 19
+* `19.0.1-1`, stable Horizon 19
+* `19.0.0-1`, stable Horizon 19
 
 ### latest
 
 * CentOS 7 with OpenJDK 8u121-jdk
 * Minion 20 develop snapshot
 
+### 19.0.1-1
+
+* CentOS 7 with OpenJDK 8u121-jdk
+* Minion 19.0.1 stable
+
 ### 19.0.0-1
 
 * CentOS 7 with OpenJDK 8u121-jdk
 * Minion 19.0.0 stable
-
 
 ## Minion Docker files
 
