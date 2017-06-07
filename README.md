@@ -1,13 +1,19 @@
 ## Supported tags
 
 * `latest`, latest develop release Horizon 20
+* `19.1.0-1`, stable Horizon 19
 * `19.0.1-1`, stable Horizon 19
 * `19.0.0-1`, stable Horizon 19
 
 ### latest
 
-* CentOS 7 with OpenJDK 8u121-jdk
+* CentOS 7 with OpenJDK 8u131-jdk
 * Minion 20 develop snapshot
+
+### 19.1.0-1
+
+* CentOS 7 with OpenJDK 8u131-jdk
+* Minion 19.1.0 stable
 
 ### 19.0.1-1
 
@@ -28,7 +34,7 @@ You can provide the Minion configuration in the `.minion.env` file.
 
 ## Requirements
 
-* docker 1.11+
+* docker 17.03+
 * docker-compose 1.8.0+
 * git
 * optional on MacOSX, Docker environment, e.g. Kitematic, boot2docker or similar
