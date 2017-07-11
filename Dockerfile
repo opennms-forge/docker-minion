@@ -1,6 +1,6 @@
 FROM opennms/openjdk:8u131-jdk
 
-MAINTAINER Ronny Trommer <ronny@opennms.org>
+LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
 ARG MINION_VERSION=develop
 
@@ -22,6 +22,11 @@ COPY ./docker-entrypoint.sh /
 VOLUME [ "/opt/minion/etc", "/opt/minion/data" ]
 
 HEALTHCHECK --interval=10s --timeout=3s CMD /opt/minion/bin/client ping | grep -Pzo "(?s).*OK.*.OK.*" || exit 1
+
+LABEL license="AGPLv3" \
+      org.opennms.horizon.version="${MINION_VERSION}" \
+      vendor="OpenNMS Community" \
+      name="Minion"
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
