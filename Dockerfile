@@ -2,7 +2,7 @@ FROM opennms/openjdk:8u144-jdk
 
 LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
-ARG MINION_VERSION=stable
+ARG MINION_VERSION=develop
 
 ENV MINION_HOME /opt/minion
 ENV MINION_LOCATION MINION
