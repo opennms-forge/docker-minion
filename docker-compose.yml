@@ -1,7 +1,7 @@
 version: '2'
 services:
   minion:
-    image: opennms/minion:latest
+    image: opennms/minion:20.0.2-1
     env_file:
       - .minion.env
     volumes:
