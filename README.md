@@ -1,6 +1,7 @@
 ## Supported tags
 
 * `latest`, latest develop release Horizon 21
+* `20.1.0-1`, stable Horizon 20
 * `20.0.2-1`, stable Horizon 20
 * `20.0.1-1`, stable Horizon 20
 * `20.0.0-1`, stable Horizon 20
@@ -12,6 +13,11 @@
 
 * CentOS 7 with OpenJDK 8u144-jdk
 * Minion 21 develop snapshot
+
+### 20.1.0-1
+
+* CentOS 7 with OpenJDK 8u144-jdk
+* Minion 20.0.2 stable
 
 ### 20.0.2-1
 
