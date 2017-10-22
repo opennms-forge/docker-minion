@@ -15,7 +15,8 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-${MINION_VERSION}-rhel7.noarch.rpm && \
     rpm --import http://yum.opennms.org/OPENNMS-GPG-KEY && \
     yum -y install opennms-minion && \
-    yum clean all
+    yum clean all && \
+    rm -rf /var/cache/yum
 
 COPY ./docker-entrypoint.sh /
 
