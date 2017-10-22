@@ -12,12 +12,12 @@
 
 ### latest
 
-* CentOS 7 with OpenJDK 8u144-jdk
+* CentOS 7 with OpenJDK 8u151-jdk
 * Minion 22 develop snapshot
 
 ### 21.0.0-1
 
-* CentOS 7 with OpenJDK 8u144-jdk
+* CentOS 7 with OpenJDK 8u151-jdk
 * Minion 21.0.0 stable
 
 ### 20.1.0-1
