@@ -1,65 +1,16 @@
 ## Supported tags
 
-* `latest`, latest develop release Horizon 22
-* `21.0.1-1`, `stable`, latest stable Horizon 21
-* `21.0.0-1`, stable Horizon 21
-* `20.1.0-1`, stable Horizon 20
-* `20.0.2-1`, stable Horizon 20
-* `20.0.1-1`, stable Horizon 20
-* `20.0.0-1`, stable Horizon 20
-* `19.1.0-1`, stable Horizon 19
-* `19.0.1-1`, stable Horizon 19
-* `19.0.0-1`, stable Horizon 19
-
-### latest
-
-* CentOS 7 with OpenJDK 8u151-jdk
-* Minion 22 develop snapshot
-
-### 21.0.1-1
-
-* CentOS 7 with OpenJDK 8u151-jdk
-* Minion 21.0.0 stable
-
-### 21.0.0-1
-
-* CentOS 7 with OpenJDK 8u151-jdk
-* Minion 21.0.0 stable
-
-### 20.1.0-1
-
-* CentOS 7 with OpenJDK 8u144-jdk
-* Minion 20.1.0 stable
-
-### 20.0.2-1
-
-* CentOS 7 with OpenJDK 8u144-jdk
-* Minion 20.0.2 stable
-
-### 20.0.1-1
-
-* CentOS 7 with OpenJDK 8u131-jdk
-* Minion 20.0.1 stable
-
-### 20.0.0-1
-
-* CentOS 7 with OpenJDK 8u131-jdk
-* Minion 20.0.0 stable
-
-### 19.1.0-1
-
-* CentOS 7 with OpenJDK 8u131-jdk
-* Minion 19.1.0 stable
-
-### 19.0.1-1
-
-* CentOS 7 with OpenJDK 8u121-jdk
-* Minion 19.0.1 stable
-
-### 19.0.0-1
-
-* CentOS 7 with OpenJDK 8u121-jdk
-* Minion 19.0.0 stable
+* `develop`, daily bleeding edge version of Horizon Minion 22 using OpenJDK 8u151-jdk
+* `21.0.2-1`, `stable`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u151-jdk
+* `21.0.1-1`, using OpenJDK 8u151-jdk
+* `21.0.0-1`, using OpenJDK 8u151-jdk
+* `20.1.0-1`, using OpenJDK 8u144-jdk
+* `20.0.2-1`, using OpenJDK 8u144-jdk
+* `20.0.1-1`, using OpenJDK 8u131-jdk
+* `20.0.0-1`, using OpenJDK 8u131-jdk
+* `19.1.0-1`, using OpenJDK 8u131-jdk
+* `19.0.1-1`, using OpenJDK 8u121-jdk
+* `19.0.0-1`, using OpenJDK 8u121-jdk
 
 ## Minion Docker files
 
