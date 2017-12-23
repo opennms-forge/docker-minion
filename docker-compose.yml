@@ -1,13 +1,18 @@
 version: '2'
 services:
   minion:
-    image: opennms/minion:stable
+    image: opennms/minion:bleeding
     env_file:
       - .minion.env
     volumes:
         - /opt/minion/etc
         - /opt/minion/data
     command: ["-f"]
+    healthcheck:
+      test: ["CMD", "/opt/minion/bin/client", "ping", "|", "grep", "-Pzo", "\"(?s).*OK.*.OK.*\"", "||", "exit", "1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
     ports:
       - "8201:8201"
       - "18980:18980"
