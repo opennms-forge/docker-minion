@@ -13,6 +13,17 @@
 * `19.0.1-1`, using OpenJDK 8u121-jdk
 * `19.0.0-1`, using OpenJDK 8u121-jdk
 
+## General Project Information
+
+* CI/CD Status: [![CircleCI](https://circleci.com/gh/opennms-forge/docker-minion.svg?style=svg)](https://circleci.com/gh/opennms-forge/docker-minion)
+* Container Image Info: [![](https://images.microbadger.com/badges/version/opennms/minion.svg)](https://microbadger.com/images/opennms/minion "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/opennms/minion.svg)](https://microbadger.com/images/opennms/minion "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/license/opennms/minion.svg)](https://microbadger.com/images/opennms/minion "Get your own license badge on microbadger.com")
+* CI/CD System: [CircleCI]
+* Docker Container Image Repository: [DockerHub]
+* Issue- and Bug-Tracking: [GitHub issue]
+* Source code: [GitHub]
+* Chat: [IRC] or [Web Chat]
+* Maintainer: ronny@opennms.org
+
 ## Minion Docker files
 
 This repository provides OpenNMS Minions as docker images.
@@ -47,6 +58,11 @@ Please change immediately the default password to a secure password described in
 
 Please open issues in the [GitHub issue](https://github.com/opennms-forge/docker-minion) section.
 
-## Author
+[GitHub]: https://github.com/opennms-forge/docker-minion.git
+[DockerHub]: https://hub.docker.com/r/opennms/minion
+[GitHub issue]: https://github.com/opennms-forge/docker-minion
+[CircleCI]: https://circleci.com/gh/opennms-forge/docker-minion
+[Web Chat]: https://chats.opennms.org/opennms-discuss
+[IRC]: irc://freenode.org/#opennms
 
-ronny@opennms.org
+
