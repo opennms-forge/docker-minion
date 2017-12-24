@@ -20,7 +20,7 @@ references:
     run:
       name: DockerHub Login
       command: |
-        docker login -u ${dockerhub_login} -p ${dockerhub_pass}
+        docker login -u ${DOCKERHUB_LOGIN} -p ${DOCKERHUB_PASS}
 
 jobs:
   build_docker_image:
@@ -40,11 +40,11 @@ jobs:
       - run:
           name: Build Minion Docker Image
           command: |
-            docker build -t opennms/minion:$(cat /tmp/workspace/dockertag) .
+            docker build -t minion:$(cat /tmp/workspace/dockertag) .
       - run:
           name: Save Docker Container Image as artifact in workspace
           command: |
-            docker image save opennms/minion:$(cat /tmp/workspace/dockertag) -o /tmp/workspace/minion-docker-image
+            docker image save minion:$(cat /tmp/workspace/dockertag) -o /tmp/workspace/minion-docker-image
       - store_artifacts:
           path: /tmp/workspace/minion-docker-image
       - persist_to_workspace:
@@ -66,21 +66,45 @@ jobs:
           command: |
             docker image load -i /tmp/workspace/minion-docker-image
       - run:
+          name: Set DockerHub project user and ensure lower case
+          command: |
+            if [ -z ${DOCKERHUB_PROJECT_USER+x} ]; then
+                DOCKERHUB_PROJECT_USER=$(echo "${CIRCLE_PROJECT_USERNAME}" | tr '[:upper:]' '[:lower:]')
+                echo "export DOCKERHUB_PROJECT_USER=${DOCKERHUB_PROJECT_USER}" >> ${BASH_ENV}
+                echo "Use CIRCLE_PROJECT_USERNAME instead which is set to ${DOCKERHUB_PROJECT_USER}."
+            else
+                DOCKERHUB_PROJECT_USER=$(echo "${DOCKERHUB_PROJECT_USER}" | tr '[:upper:]' '[:lower:]')
+                echo "export DOCKERHUB_PROJECT_USER=${DOCKERHUB_PROJECT_USER}" >> ${BASH_ENV}
+                echo "Overwrite DOCKERHUB_PROJECT_USER with ${DOCKERHUB_PROJECT_USER}."
+            fi
+      - run:
+          name: Set DockerHub project name and ensure lower case
+          command: |
+            if [ -z ${DOCKERHUB_PROJECT_NAME+x} ]; then
+                DOCKERHUB_PROJECT_NAME=$(echo "${CIRCLE_PROJECT_REPONAME}" | tr '[:upper:]' '[:lower:]')
+                echo "export DOCKERHUB_PROJECT_NAME=${DOCKERHUB_PROJECT_NAME}" >> ${BASH_ENV}
+                echo "Use CIRCLE_PROJECT_REPONAME instead which is set to ${DOCKERHUB_PROJECT_NAME}."
+            else
+                DOCKERHUB_PROJECT_NAME=$(echo "${DOCKERHUB_PROJECT_NAME}" | tr '[:upper:]' '[:lower:]')
+                echo "export DOCKERHUB_PROJECT_NAME=${DOCKERHUB_PROJECT_NAME}" >> ${BASH_ENV}
+                echo "Overwrite DOCKERHUB_PROJECT_NAME with ${DOCKERHUB_PROJECT_NAME}."
+            fi
+      - run:
           name: Tag Docker Container Images
           command: |
             case "${CIRCLE_BRANCH}" in
               master)
-                docker tag opennms/minion:$(cat /tmp/workspace/dockertag) opennms/minion:bleeding
-                docker push opennms/minion:bleeding
+                docker tag minion:$(cat /tmp/workspace/dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:bleeding
+                docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:bleeding
                 ;;
               drift)
-                docker tag opennms/minion:$(cat /tmp/workspace/dockertag) opennms/minion:drift
-                docker push opennms/minion:drift
+                docker tag minion:$(cat /tmp/workspace/dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:drift
+                docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:drift
                 ;;
               release*)
-                docker tag opennms/minion:$(cat /tmp/workspace/dockertag) opennms/minion:latest
-                docker push opennms/minion:latest
-                docker push opennms/minion:$(cat /tmp/workspace/dockertag)
+                docker tag minion:$(cat /tmp/workspace/dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:latest
+                docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:latest
+                docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat /tmp/workspace/dockertag)
                 ;;
               *)
                 echo "This is not a branch build which needs to be published"
