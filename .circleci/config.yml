@@ -103,6 +103,7 @@ jobs:
                 ;;
               release*)
                 docker tag minion:$(cat /tmp/workspace/dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:latest
+                docker tag minion:$(cat /tmp/workspace/dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat /tmp/workspace/dockertag)
                 docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:latest
                 docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat /tmp/workspace/dockertag)
                 ;;
