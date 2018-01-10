@@ -90,7 +90,7 @@ jobs:
                 echo "Overwrite DOCKERHUB_PROJECT_NAME with ${DOCKERHUB_PROJECT_NAME}."
             fi
       - run:
-          name: Tag Docker Container Images
+          name: Tag Docker Container Images and push to DockerHub
           command: |
             case "${CIRCLE_BRANCH}" in
               master)
@@ -124,5 +124,24 @@ workflows:
                 - /release\/.*/
                 - master
                 - drift
+          requires:
+            - build_docker_image
+  daily-build:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                 - master
+                 - drift
+    jobs:
+      - build_docker_image
+      - publish_dockerhub:
+          filters:
+            branches:
+              only:
+                 - master
+                 - drift
           requires:
             - build_docker_image
