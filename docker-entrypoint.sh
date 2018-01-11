@@ -9,6 +9,8 @@
 
 # Error codes
 E_ILLEGAL_ARGS=126
+MINION_OVERLAY_CFG=/opt/minion-etc-overlay
+MINION_HOME=/opt/minion
 
 # Help function used in error messages and -h option
 usage() {
@@ -46,6 +48,15 @@ initConfig() {
     fi
 }
 
+applyOverlayConfig() {
+  if [ "$(ls -A ${MINION_OVERLAY_CFG})" ]; then
+    echo "Apply custom configuration from ${MINION_OVERLAY_CFG}."
+    cp -r ${MINION_OVERLAY_CFG}/* ${MINION_HOME}/etc
+  else
+    echo "No custom config found in ${MINION_OVERLAY_CFG}. Use default configuration."
+  fi
+}
+
 start() {
     cd ${MINION_HOME}/bin
     ./karaf server
@@ -62,6 +73,7 @@ while getopts fhis flag; do
     case ${flag} in
         f)
             initConfig
+            applyOverlayConfig
             start
             ;;
         h)
