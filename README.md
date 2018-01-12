@@ -52,7 +52,7 @@ Additionally the ports to receive Syslog (514/UDP) and SNMP Traps (162/UDP) are 
 To start the Minion and initialize the configuration run with argument `-f`.
 
 You can login with default user *admin* with password *admin*.
-Please change immediately the default password to a secure password described in the [Admin Guide](http://docs.opennms.org/opennms/branches/release-19.0.0/guide-install/guide-install.html#gi-minion).
+Please change immediately the default password to a secure password described in the [Install Guide].
 
 ## Support and Issues
 
@@ -64,5 +64,6 @@ Please open issues in the [GitHub issue](https://github.com/opennms-forge/docker
 [CircleCI]: https://circleci.com/gh/opennms-forge/docker-minion
 [Web Chat]: https://chats.opennms.org/opennms-discuss
 [IRC]: irc://freenode.org/#opennms
+[Install Guide]: http://docs.opennms.org/opennms/releases/latest/guide-install/guide-install.html#gi-minion
 
 
