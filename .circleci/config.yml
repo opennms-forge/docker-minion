@@ -5,7 +5,7 @@ defaults: &defaults
   working_directory: /home/circleci/minion
 
   workspace_root: &workspace_root
-    /tmp/workspace
+    .
 
   attach_workspace: &attach_workspace
     attach_workspace:
@@ -36,17 +36,17 @@ jobs:
           command: |
             DOCKERHUB_TAG=${CIRCLE_BRANCH#release/}
             DOCKERHUB_TAG=${DOCKERHUB_TAG/\//-}
-            echo ${DOCKERHUB_TAG} > /tmp/workspace/dockertag
+            echo ${DOCKERHUB_TAG} > dockertag
       - run:
           name: Build Minion Docker Image
           command: |
-            docker build -t minion:$(cat /tmp/workspace/dockertag) .
+            docker build -t minion:$(cat dockertag) .
       - run:
           name: Save Docker Container Image as artifact in workspace
           command: |
-            docker image save minion:$(cat /tmp/workspace/dockertag) -o /tmp/workspace/minion-docker-image
+            docker image save minion:$(cat dockertag) -o minion-docker-image
       - store_artifacts:
-          path: /tmp/workspace/minion-docker-image
+          path: minion-docker-image
       - persist_to_workspace:
           root: *workspace_root
           paths:
@@ -64,7 +64,7 @@ jobs:
       - run:
           name: Load Docker Container Image file
           command: |
-            docker image load -i /tmp/workspace/minion-docker-image
+            docker image load -i minion-docker-image
       - run:
           name: Set DockerHub project user and ensure lower case
           command: |
@@ -94,18 +94,18 @@ jobs:
           command: |
             case "${CIRCLE_BRANCH}" in
               master)
-                docker tag minion:$(cat /tmp/workspace/dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:bleeding
+                docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:bleeding
                 docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:bleeding
                 ;;
               drift)
-                docker tag minion:$(cat /tmp/workspace/dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:drift
+                docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:drift
                 docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:drift
                 ;;
               release*)
-                docker tag minion:$(cat /tmp/workspace/dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:latest
-                docker tag minion:$(cat /tmp/workspace/dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat /tmp/workspace/dockertag)
+                docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:latest
+                docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat dockertag)
                 docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:latest
-                docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat /tmp/workspace/dockertag)
+                docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat dockertag)
                 ;;
               *)
                 echo "This is not a branch build which needs to be published"
