@@ -1,12 +1,16 @@
-version: '2'
+version: '2.3'
+
+volumes:
+  minion.keystore:
+    driver: local
+
 services:
   minion:
     image: opennms/minion:bleeding
     env_file:
       - .minion.env
     volumes:
-        - /opt/minion/etc
-        - /opt/minion/data
+      - minion.keystore:/opt/minion/etc/scv.jce
     command: ["-f"]
     healthcheck:
       test: ["CMD", "/opt/minion/bin/client", "ping", "|", "grep", "-Pzo", "\"(?s).*OK.*.OK.*\"", "||", "exit", "1"]

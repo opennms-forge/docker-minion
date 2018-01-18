@@ -4,12 +4,19 @@ LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
 ARG MINION_VERSION=develop
 
-ENV MINION_HOME /opt/minion
-ENV MINION_LOCATION MINION
-ENV MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
+ENV MINION_HOME=/opt/minion
+ENV MINION_CONFIG=/opt/minion/etc/org.opennms.minion.controller.cfg
+
 ENV MINION_ID 00000000-0000-0000-0000-deadbeef0001
+ENV MINION_LOCATION MINION
+
 ENV OPENNMS_BROKER_URL tcp://127.0.0.1:61616
 ENV OPENNMS_HTTP_URL http://127.0.0.1:8980/opennms
+
+ENV OPENNMS_HTTP_USER minion
+ENV OPENNMS_HTTP_PASS minion
+ENV OPENNMS_BROKER_USER minion
+ENV OPENNMS_BROKER_PASS minion
 
 RUN yum -y --setopt=tsflags=nodocs update && \
     rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-${MINION_VERSION}-rhel7.noarch.rpm && \
