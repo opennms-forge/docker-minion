@@ -15,7 +15,8 @@ ENV OPENNMS_HTTP_URL http://127.0.0.1:8980/opennms
 RUN apt-get update && \
     apt-get -y install curl && \
     mkdir ${MINION_HOME} && \
-    curl -L ${MINION_URL} | tar xz -C /opt/minion --strip-components=1
+    curl -L ${MINION_URL} | tar xz -C /opt/minion --strip-components=1 && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY ./docker-entrypoint.sh /
 
