@@ -31,16 +31,17 @@ initConfig() {
         # Expose Karaf Shell
         sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," ${MINION_HOME}/etc/org.apache.karaf.shell.cfg
 
-        # Set Minion location and connection to OpenNMS instance
-        sed -i "s,location = MINION,location = ${MINION_LOCATION}," ${MINION_CONFIG}
-        echo "broker-url = ${OPENNMS_BROKER_URL}" >> ${MINION_CONFIG}
-        echo "http-url = ${OPENNMS_HTTP_URL}" >> ${MINION_CONFIG}
-        echo "id = ${MINION_ID}" >> ${MINION_CONFIG}
-        echo "Configured $(date)" > ${MINION_HOME}/etc/configured
-
         # Expose the RMI registry and server
         sed -i "s,rmiRegistryHost.*,rmiRegistryHost=0.0.0.0,g" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
         sed -i "s,rmiServerHost.*,rmiServerHost=0.0.0.0,g" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
+
+        # Set Minion location and connection to OpenNMS instance
+        echo "location = ${MINION_LOCATION}" > ${MINION_CONFIG}
+        echo "id = ${MINION_ID}" >> ${MINION_CONFIG}
+        echo "broker-url = ${OPENNMS_BROKER_URL}" >> ${MINION_CONFIG}
+        echo "http-url = ${OPENNMS_HTTP_URL}" >> ${MINION_CONFIG}
+
+        echo "Configured $(date)" > ${MINION_HOME}/etc/configured
     else
         echo "OpenNMS Minion is already configured, skipped."
     fi
