@@ -1,13 +1,11 @@
-version: '2'
+version: '2.3'
+
 services:
   minion:
     image: opennms/minion:bleeding
     env_file:
       - .minion.env
-    volumes:
-        - /opt/minion/etc
-        - /opt/minion/data
-    command: ["-f"]
+    command: ["-c"]
     healthcheck:
       test: ["CMD", "/opt/minion/bin/client", "ping", "|", "grep", "-Pzo", "\"(?s).*OK.*.OK.*\"", "||", "exit", "1"]
       interval: 10s
