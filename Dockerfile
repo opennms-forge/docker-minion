@@ -4,8 +4,8 @@ LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
 ARG MINION_VERSION=develop
 
-ENV MINION_HOME=/opt/minion
-ENV MINION_CONFIG=/opt/minion/etc/org.opennms.minion.controller.cfg
+ENV MINION_HOME /opt/minion
+ENV MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
 
 ENV MINION_ID 00000000-0000-0000-0000-deadbeef0001
 ENV MINION_LOCATION MINION

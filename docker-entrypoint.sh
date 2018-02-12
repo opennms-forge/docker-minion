@@ -7,12 +7,6 @@
 #
 # =====================================================================
 
-# Credentials for accessing OpenNMS
-#
-# WARNING: If you set the credentials with an environment variable, they are exposed with docker inspect and probably on
-#          some logs.
-#          You can use the -s parameter to set the credentials in a keystore file
-
 # Error codes
 E_ILLEGAL_ARGS=126
 
@@ -22,20 +16,28 @@ usage() {
     echo "Docker entry script for OpenNMS Minion service container"
     echo ""
     echo "-c: Start Minion and use environment credentials to register Minion on OpenNMS."
-    echo "    WARNING: Can be exposed via docker inspect and log files. Please consider to use -s option."
-    echo "-s: Just ask for credentials and store them in a keystore file. Use -f to start the Minion afterwards."
-    echo "    Ensure you persist ${MINION_HOME}/etc/scv.jce"
+    echo "    WARNING: Credentials can be exposed via docker inspect and log files. Please consider to use -s option."
+    echo "-s: Initialize a keystore file with credentials in /keystore/scv.jce."
+    echo "    Mount /keystore to your local system or a volume to save the keystore file."
+    echo "    You can mount the keystore file to ${MINION_HOME}/etc/scv.jce and just use -f to start the Minion."
     echo "-f: Initialize and start OpenNMS Minion in foreground."
     echo "-h: Show this help."
     echo ""
 }
 
 useEnvCredentials(){
+  echo "WARNING: Credentials can be exposed via docker inspect and log files. Please consider to use a keystore file."
+  echo "         You can initialize a keystore file with the -s option."
   ${MINION_HOME}/bin/scvcli set opennms.http ${OPENNMS_HTTP_USER} ${OPENNMS_HTTP_PASS}
   ${MINION_HOME}/bin/scvcli set opennms.broker ${OPENNMS_BROKER_USER} ${OPENNMS_BROKER_PASS}
 }
 
 setCredentials() {
+  # Directory to initialize a new keystore file which can be mounted to the local host
+  if [ -z /keystore ]; then
+    mkdir /keystore
+  fi
+
   read -p "Enter OpenNMS HTTP username: " OPENNMS_HTTP_USER
   read -s -p "Enter OpenNMS HTTP password: " OPENNMS_HTTP_PASS
   echo ""
@@ -46,6 +48,8 @@ setCredentials() {
 
   ${MINION_HOME}/bin/scvcli set opennms.http ${OPENNMS_HTTP_USER} ${OPENNMS_HTTP_PASS}
   ${MINION_HOME}/bin/scvcli set opennms.broker ${OPENNMS_BROKER_USER} ${OPENNMS_BROKER_PASS}
+
+  cp ${MINION_HOME}/etc/scv.jce /keystore
 }
 
 initConfig() {
