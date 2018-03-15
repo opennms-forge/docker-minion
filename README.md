@@ -2,7 +2,9 @@
 
 * `drift`, bleeding edge feature release of Horizon Minion 22 with features develop in the [Drift project](https://wiki.opennms.org/wiki/DevProjects/Drift)
 * `bleeding`, daily bleeding edge version of Horizon Minion 22 using OpenJDK 8u161-jdk
-* `21.0.3-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u161-jdk
+* `21.0.5-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u161-jdk
+* `21.0.4-1`, using OpenJDK 8u161-jdk
+* `21.0.3-1`, using OpenJDK 8u161-jdk
 * `21.0.2-1`, using OpenJDK 8u161-jdk
 * `21.0.1-1`, using OpenJDK 8u151-jdk
 * `21.0.0-1`, using OpenJDK 8u151-jdk
@@ -79,7 +81,7 @@ docker run --rm -d \
 *IMPORTANT:* Be aware these credentials can be exposed in log files and the `docker inspect` command.
                It is recommended to use an encrypted keystore file which is described in option 2.
 
-***Option 2***: Initialize and use a keystore file 
+***Option 2***: Initialize and use a keystore file
 
 Credentials for the OpenNMS communication can be stored in an encrypted keystore file `scv.jce`.
 It is possible to start a Minion with a given keystore file by using a file mount into the container like `-v path/to/scv.jce:/opt/minion/etc/scv.jce`
@@ -99,7 +101,7 @@ Enter OpenNMS Broker password:
 [main] INFO org.opennms.features.scv.jceks.JCEKSSecureCredentialsVault - Loading existing keystore from: scv.jce
 ```
 
-The keystore file can be used by mounting the file into the container and start the Minion application with `-f`. 
+The keystore file can be used by mounting the file into the container and start the Minion application with `-f`.
 
 ```
 docker run --rm -d \
@@ -107,7 +109,7 @@ docker run --rm -d \
   -e "OPENNMS_BROKER_URL=tcp://172.20.11.19:61616" \
   -e "OPENNMS_HTTP_URL=http://172.20.11.19:8980/opennms" \
   -v $(pwd)/scv.jce:/opt/minion/etc/scv.jce \
-  opennms/minion -f 
+  opennms/minion -f
 ```
 
 ## Support and Issues
@@ -121,5 +123,3 @@ Please open issues in the [GitHub issue](https://github.com/opennms-forge/docker
 [Web Chat]: https://chats.opennms.org/opennms-discuss
 [IRC]: irc://freenode.org/#opennms
 [Install Guide]: http://docs.opennms.org/opennms/releases/latest/guide-install/guide-install.html#gi-minion
-
-
