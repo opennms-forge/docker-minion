@@ -2,7 +2,7 @@ version: '2.3'
 
 services:
   minion:
-    image: opennms/minion:bleeding
+    image: opennms/minion:latest
     env_file:
       - .minion.env
     command: ["-c"]
