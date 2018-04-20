@@ -61,7 +61,7 @@ initConfig() {
     if [ ! -f ${MINION_HOME}/etc/configured} ]; then
 
         # Expose Karaf Shell
-        sed -i "s,sshHost = 127.0.0.1,sshHost = 0.0.0.0," ${MINION_HOME}/etc/org.apache.karaf.shell.cfg
+        sed -i "s,sshHost=127.0.0.1,sshHost=0.0.0.0," ${MINION_HOME}/etc/org.apache.karaf.shell.cfg
 
         # Expose the RMI registry and server
         sed -i "s,rmiRegistryHost.*,rmiRegistryHost=0.0.0.0,g" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
