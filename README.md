@@ -1,8 +1,8 @@
 ## Supported tags
 
 * `drift`, bleeding edge feature release of Horizon Minion 22 with features develop in the [Drift project](https://wiki.opennms.org/wiki/DevProjects/Drift)
-* `bleeding`, daily bleeding edge version of Horizon Minion 22 using OpenJDK 8u161-jdk
-* `21.1.0-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u161-jdk
+* `bleeding`, daily bleeding edge version of Horizon Minion 22 using OpenJDK latest
+* `21.1.0-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK latest
 * `21.0.5-1`, using OpenJDK 8u161-jdk
 * `21.0.4-1`, using OpenJDK 8u161-jdk
 * `21.0.3-1`, using OpenJDK 8u161-jdk
