@@ -97,10 +97,6 @@ jobs:
                 docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:bleeding
                 docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:bleeding
                 ;;
-              drift)
-                docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:drift
-                docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:drift
-                ;;
               release*)
                 docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:latest
                 docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat dockertag)
@@ -123,6 +119,5 @@ workflows:
               only:
                 - /release\/.*/
                 - master
-                - drift
           requires:
             - build_docker_image
