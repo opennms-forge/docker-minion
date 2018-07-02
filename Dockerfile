@@ -27,7 +27,7 @@ RUN yum -y --setopt=tsflags=nodocs update && \
 
 COPY ./docker-entrypoint.sh /
 
-VOLUME [ "/opt/minion/etc", "/opt/minion/data" ]
+VOLUME [ "/opt/minion/etc", "/opt/minion/etc/featuresBoot.d", "/opt/minion/data" ]
 
 LABEL license="AGPLv3" \
       org.opennms.horizon.version="${MINION_VERSION}" \
