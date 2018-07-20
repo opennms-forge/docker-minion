@@ -2,7 +2,8 @@
 
 * `drift`, bleeding edge feature release of Horizon Minion 22 with features develop in the [Drift project](https://wiki.opennms.org/wiki/DevProjects/Drift)
 * `bleeding`, daily bleeding edge version of Horizon Minion 22 using OpenJDK latest
-* `22.0.0-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK latest
+* `22.0.2-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK latest
+* `22.0.1-1`, using OpenJDK 8u161-jdk
 * `21.1.0-1`, using OpenJDK 8u161-jdk
 * `21.0.5-1`, using OpenJDK 8u161-jdk
 * `21.0.4-1`, using OpenJDK 8u161-jdk
@@ -38,8 +39,8 @@ You can provide the Minion configuration in the `.minion.env` file.
 
 ## Requirements
 
-* docker 17.03+
-* docker-compose 1.8.0+
+* docker 18.05.0-ce, build 89658be
+* docker-compose 1.21.1, build 5a3f1a3
 * git
 * optional on MacOSX, Docker environment, e.g. Kitematic, boot2docker or similar
 
