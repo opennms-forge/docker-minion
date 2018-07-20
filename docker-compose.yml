@@ -2,7 +2,7 @@ version: '2.3'
 
 services:
   minion:
-    image: opennms/minion:bleeding
+    image: opennms/minion:latest
     environment:
       - TZ=Europe/Berlin
       - MINION_ID=my-unique-minion-id
