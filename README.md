@@ -1,7 +1,8 @@
 ## Supported tags
 
 * `bleeding`, daily bleeding edge version of Horizon Minion 22 using OpenJDK 8u181-jdk
-* `22.0.2-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u181-jdk
+* `22.0.3-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u181-jdk
+* `22.0.2-1`, using OpenJDK 8u181-jdk
 * `22.0.1-1`, using OpenJDK 8u161-jdk
 * `21.1.0-1`, using OpenJDK 8u161-jdk
 * `21.0.5-1`, using OpenJDK 8u161-jdk
