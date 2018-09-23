@@ -2,7 +2,7 @@ FROM opennms/openjdk:latest
 
 LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
-ARG MINION_VERSION=develop
+ARG MINION_VERSION=stable
 
 ENV MINION_HOME /opt/minion
 ENV MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
