@@ -44,14 +44,14 @@ To start the Minion and initialize the configuration run with argument `-f`.
 You can login with default user *admin* with password *admin*.
 Please change immediately the default password to a secure password described in the [Install Guide].
 
-## BasicEnvironment Variables
+## Basic Environment Variables
 
 * `MINION_ID`, the Minion ID
 * `MINION_LOCATION`, the Minion Location
-* `OPENNMS_BROKER_URL`, the ActiveMQ URL
-* `OPENNMS_HTTP_URL`, the OpenNMS Base URL
+* `OPENNMS_HTTP_URL`, the OpenNMS WebUI Base URL
 * `OPENNMS_HTTP_USER`, the user name for the OpenNMS ReST API
 * `OPENNMS_HTTP_PASS`, the password for the OpenNMS ReST API
+* `OPENNMS_BROKER_URL`, the ActiveMQ URL
 * `OPENNMS_BROKER_USER`, the username for ActiveMQ authentication
 * `OPENNMS_BROKER_PASS`, the password for ActiveMQ authentication
 
