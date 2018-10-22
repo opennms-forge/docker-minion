@@ -46,7 +46,9 @@ Please change immediately the default password to a secure password described in
 
 ## Run as root or non-root
 
-By default, Minion will run using the default `minion` user (uid: 999, gid: 997). For this reason, if executing ICMP requests from the Minion are required, you need to specify a special kernel flag when executing `docker run`, or when using this image through `docker-compose`. The option in question is:
+By default, Minion will run using the default `minion` user (uid: 999, gid: 997).
+For this reason, if executing ICMP requests from the Minion are required, you need to specify a special kernel flag when executing `docker run`, or when using this image through `docker-compose`.
+The option in question is:
 
 ```
 net.ipv4.ping_group_range=0 429496729
@@ -78,7 +80,8 @@ services:
           - net.ipv4.ping_group_range=0 429496729
 ```
 
-Another alternative to avoid providing the custom `sysctl` attribute is by running the image as root. This can be done by passing `--user 0` to `docker run`, or by adding `user: root` on your docker-compose's yaml file.
+Another alternative to avoid providing the custom `sysctl` attribute is by running the image as root.
+This can be done by passing `--user 0` to `docker run`, or by adding `user: root` on your docker-compose's yaml file.
 
 ## Dealing with Credentials
 
@@ -107,7 +110,7 @@ docker run --rm -d \
 ***Option 2***: Initialize and use a keystore file
 
 Credentials for the OpenNMS communication can be stored in an encrypted keystore file `scv.jce`.
-It is possible to start a Minion with a given keystore file by using a file mount into the container like `-v path/to/scv.jce:/opt/minion/etc/scv.jce`
+It is possible to start a Minion with a given keystore file by using a file mount into the container like `-v path/to/scv.jce:/opt/minion/etc/scv.jce`.
 
 You can initialize a keystore file on your local system using the `-s` option on the Minion container using the interactive mode.
 
