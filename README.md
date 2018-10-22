@@ -44,6 +44,42 @@ To start the Minion and initialize the configuration run with argument `-f`.
 You can login with default user *admin* with password *admin*.
 Please change immediately the default password to a secure password described in the [Install Guide].
 
+## Run as root or non-root
+
+By default, Minion will run using the default `minion` user (uid: 999, gid: 997). For this reason, if executing ICMP requests from the Minion are required, you need to specify a special kernel flag when executing `docker run`, or when using this image through `docker-compose`. The option in question is:
+
+```
+net.ipv4.ping_group_range=0 429496729
+```
+
+For `docker run`, the syntax is:
+
+```
+docker run --sysctl "net.ipv4.ping_group_range=0 429496729" --rm --name minion -it
+ -e MINION_LOCATION=Apex \
+ -e OPENNMS_BROKER_URL=tcp://192.168.205.1:61616 \
+ -e OPENNMS_HTTP_URL=http://192.168.205.1:8980/opennms \
+ opennms/minion:bleeding -f
+```
+
+For  `docker-compose`, the syntax is:
+
+```
+version: '2.3'
+services:
+    minion:
+        image: opennms/minion:bleeding
+        environment:
+          - MINION_LOCATION=Apex
+          - OPENNMS_BROKER_URL=tcp://192.168.205.1:61616
+          - OPENNMS_HTTP_URL=http://192.168.205.1:8980/opennms
+        command: ["-f"]
+        sysctls:
+          - net.ipv4.ping_group_range=0 429496729
+```
+
+Another alternative to avoid providing the custom `sysctl` attribute is by running the image as root. This can be done by passing `--user 0` to `docker run`, or by adding `user: root` on your docker-compose's yaml file.
+
 ## Dealing with Credentials
 
 To communicate with OpenNMS credentials for the message broker and the ReST API are required.
