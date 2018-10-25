@@ -44,6 +44,78 @@ To start the Minion and initialize the configuration run with argument `-f`.
 You can login with default user *admin* with password *admin*.
 Please change immediately the default password to a secure password described in the [Install Guide].
 
+## Basic Environment Variables
+
+* `MINION_ID`, the Minion ID
+* `MINION_LOCATION`, the Minion Location
+* `OPENNMS_HTTP_URL`, the OpenNMS WebUI Base URL
+* `OPENNMS_HTTP_USER`, the user name for the OpenNMS ReST API
+* `OPENNMS_HTTP_PASS`, the password for the OpenNMS ReST API
+* `OPENNMS_BROKER_URL`, the ActiveMQ URL
+* `OPENNMS_BROKER_USER`, the username for ActiveMQ authentication
+* `OPENNMS_BROKER_PASS`, the password for ActiveMQ authentication
+
+## Advanced Environment Variables
+
+Kafka and UDP listeners can be configured through environment variables.
+All the valid configuration entries are valid and will be processed on demand, depending on a given environment variable prefix:
+
+* `KAFKA_RPC_`, to denote a Kafka setting for RPC
+* `KAFKA_SINK_`, to denote a Kafka setting for Sink
+* `UDP_`, to denote a UDP listener
+
+### Enable Kafka for RPC (requires Horizon 23 or newer)
+
+A sample configuration would be:
+
+```
+KAFKA_RPC_BOOTSTRAP_SERVERS=kafka_server_01:9092
+KAFKA_RPC_ACKS=1
+```
+
+The above will instruct the bootstrap script to create a file called `$MINION_HOME/etc/org.opennms.core.ipc.rpc.kafka.cfg` with the following content:
+
+```
+bootstrap.servers=kafka_server_01:9092
+acks=1
+```
+
+As you can see, after the prefix, you specify the name of the variable, and the underscore character will be replaced with a dot.
+
+### Enable Kafka for Sink
+
+A sample configuration would be:
+
+```
+KAFKA_SINK_BOOTSTRAP_SERVERS=kafka_server_01:9092
+```
+
+A similar behavior happens to populate `$MINION_HOME/etc/org.opennms.core.ipc.sink.kafka.cfg`.
+
+### UDP Listeners
+
+In this case, the environment variable includes the UDP port, that will be used for the configuration file name, and the properties that follow the same behavor like Kafka.
+For example:
+
+```
+UDP_50001_NAME=NX-OS
+UDP_50001_CLASS_NAME=org.opennms.netmgt.telemetry.listeners.udp.UdpListener
+UDP_50001_LISTENER_PORT=50001
+UDP_50001_HOST=0.0.0.0
+UDP_50001_MAX_PACKET_SIZE=16192
+```
+
+The above will instruct the bootstrap script to create a file called `$MINION_HOME/etc/org.opennms.features.telemetry.listeners-udp-50001.cfg` with the following content:
+
+```
+name=NXOS
+class-name=org.opennms.netmgt.telemetry.listeners.udp.UdpListener
+listener.port=50001
+maxPacketSize=16192
+```
+
+Note: `CLASS_NAME` and `MAX_PACKET_SIZE` are special cases and will be translated properly.
+
 ## Run as root or non-root
 
 By default, Minion will run using the default `minion` user (uid: 999, gid: 997).
