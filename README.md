@@ -57,7 +57,8 @@ Please change immediately the default password to a secure password described in
 
 ## Advanced Environment Variables
 
-Kafka and UDP listeners can be configured through environment variables. All the valid configuration entries are valid and will be processed on demand, depending on a given environment variable prefix:
+Kafka and UDP listeners can be configured through environment variables.
+All the valid configuration entries are valid and will be processed on demand, depending on a given environment variable prefix:
 
 * `KAFKA_RPC_`, to denote a Kafka setting for RPC
 * `KAFKA_SINK_`, to denote a Kafka setting for Sink
@@ -93,7 +94,8 @@ A similar behavior happens to populate `$MINION_HOME/etc/org.opennms.core.ipc.si
 
 ### UDP Listeners
 
-In this case, the environment variable includes the UDP port, that will be used for the configuration file name, and the properties that follow the same behavor like Kafka. For example:
+In this case, the environment variable includes the UDP port, that will be used for the configuration file name, and the properties that follow the same behavor like Kafka.
+For example:
 
 ```
 UDP_50001_NAME=NX-OS
@@ -104,7 +106,6 @@ UDP_50001_MAX_PACKET_SIZE=16192
 ```
 
 The above will instruct the bootstrap script to create a file called `$MINION_HOME/etc/org.opennms.features.telemetry.listeners-udp-50001.cfg` with the following content:
-Will be translated to
 
 ```
 name=NXOS
