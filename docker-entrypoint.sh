@@ -52,6 +52,61 @@ setCredentials() {
   cp ${MINION_HOME}/etc/scv.jce /keystore
 }
 
+function updateConfig() {
+    key=$1
+    value=$2
+    file=$3
+
+    # Handling exceptions
+    [ "$key" == "class.name" ]       && key="class-name"
+    [ "$key" == "max.packet.size" ]  && key="maxPacketSize"
+    [ "$key" == "template.timeout" ] && key="templateTimeout"
+
+    # Omit $value here, in case there is sensitive information
+    echo "[Configuring] '$key' in '$file'"
+
+    # If config exists in file, replace it. Otherwise, append to file.
+    if grep -E -q "^#?$key=" "$file"; then
+        sed -r -i "s@^#?$key=.*@$key=$value@g" "$file" #note that no config values may contain an '@' char
+    else
+        echo "$key=$value" >> "$file"
+    fi
+}
+
+function parseEnvironment() {
+    # Configure additional features
+    IFS=$'\n'
+    for VAR in $(env)
+    do
+        env_var=$(echo "$VAR" | cut -d= -f1)
+
+        if [[ $env_var =~ ^KAFKA_RPC_ ]]; then
+            rpc_name=$(echo "$env_var" | cut -d_ -f3- | tr '[:upper:]' '[:lower:]' | tr _ .)
+            updateConfig "$rpc_name" "${!env_var}" "${MINION_HOME}/etc/org.opennms.core.ipc.rpc.kafka.cfg"
+            if [[ "$rpc_name" == "bootstrap.servers" ]]; then
+                echo "!opennms-core-ipc-rpc-jms"   > ${MINION_HOME}/etc/featuresBoot.d/kafka-rpc.boot
+                echo "opennms-core-ipc-rpc-kafka" >> ${MINION_HOME}/etc/featuresBoot.d/kafka-rpc.boot
+            fi
+        fi
+
+        if [[ $env_var =~ ^KAFKA_SINK_ ]]; then
+            sink_key=$(echo "$env_var" | cut -d_ -f3- | tr '[:upper:]' '[:lower:]' | tr _ .)
+            updateConfig "$sink_key" "${!env_var}" "${MINION_HOME}/etc/org.opennms.core.ipc.sink.kafka.cfg"
+            if [[ "$sink_key" == "bootstrap.servers" ]]; then
+                echo "!opennms-core-ipc-sink-camel" > ${MINION_HOME}/etc/featuresBoot.d/kafka-sink.boot
+                echo "opennms-core-ipc-sink-kafka" >> ${MINION_HOME}/etc/featuresBoot.d/kafka-sink.boot
+            fi
+        fi
+
+        if [[ $env_var =~ ^UDP_ ]]; then
+            udp_data=$(echo "$env_var" | cut -d_ -f2- | tr '[:upper:]' '[:lower:]' | tr _ .)
+            udp_port=$(echo $udp_data | sed 's/\..*//')
+            udp_key=$(echo $udp_data | sed -r 's/^[0-9]+\.//')
+            updateConfig "$udp_key" "${!env_var}" "${MINION_HOME}/etc/org.opennms.features.telemetry.listeners-udp-$udp_port.cfg"
+        fi
+    done
+}
+
 initConfig() {
     if [ ! -d ${MINION_HOME} ]; then
         echo "OpenNMS Minion home directory doesn't exist in ${MINION_HOME}."
@@ -72,6 +127,8 @@ initConfig() {
         echo "id = ${MINION_ID}" >> ${MINION_CONFIG}
         echo "broker-url = ${OPENNMS_BROKER_URL}" >> ${MINION_CONFIG}
         echo "http-url = ${OPENNMS_HTTP_URL}" >> ${MINION_CONFIG}
+
+        parseEnvironment
 
         echo "Configured $(date)" > ${MINION_HOME}/etc/configured
     else

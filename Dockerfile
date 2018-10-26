@@ -23,7 +23,11 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     rpm --import http://yum.opennms.org/OPENNMS-GPG-KEY && \
     yum -y install opennms-minion && \
     yum clean all && \
-    rm -rf /var/cache/yum
+    rm -rf /var/cache/yum && \
+    chown minion:minion /opt/minion && \
+    sed -r -i '/RUNAS/s/.*/export RUNAS=minion/' /etc/sysconfig/minion
+
+USER minion
 
 COPY ./docker-entrypoint.sh /
 
