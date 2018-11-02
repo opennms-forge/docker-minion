@@ -210,6 +210,17 @@ docker run --rm -d \
   opennms/minion -f
 ```
 
+## Using etc-overlay for custom configuration
+
+If you just want to maintain custom configuration files outside of Minion, you can use an etc-overlay directory.
+All files in this directory are just copied into /opt/minion/etc in the running container.
+You can just mount a local directory like this:
+
+```yml
+volumes:
+  - ./etc-overlay:/opt/minion-etc-overlay
+```
+
 ## Support and Issues
 
 Please open issues in the [GitHub issue](https://github.com/opennms-forge/docker-minion) section.
