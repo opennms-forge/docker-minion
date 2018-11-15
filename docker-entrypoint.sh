@@ -118,6 +118,9 @@ initConfig() {
         # Expose Karaf Shell
         sed -i "/^sshHost/s/=.*/= 0.0.0.0/" ${MINION_HOME}/etc/org.apache.karaf.shell.cfg
 
+        # Set Karaf Logging
+        sed -i "/^log4j2.rootLogger.level/s/=.*/= ${MINION_LOG_LEVEL:=INFO}/" ${MINION_HOME}/etc/org.ops4j.pax.logging.cfg
+
         # Expose the RMI registry and server
         sed -i "/^rmiRegistryHost/s/=.*/= 0.0.0.0/" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
         sed -i "/^rmiServerHost/s/=.*/= 0.0.0.0/" ${MINION_HOME}/etc/org.apache.karaf.management.cfg
