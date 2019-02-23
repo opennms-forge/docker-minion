@@ -25,13 +25,13 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     yum clean all && \
     rm -rf /var/cache/yum && \
     chown minion:minion /opt/minion && \
-    sed -r -i '/RUNAS/s/.*/export RUNAS=minion/' /etc/sysconfig/minion
+    sed -r -i '/RUNAS/s/.*/export RUNAS=minion/' /etc/sysconfig/minion && \
+    chgrp -R 0 /opt/minion && \
+    chmod -R g=u /opt/minion
 
-USER minion
+USER 999
 
 COPY ./docker-entrypoint.sh /
-
-VOLUME [ "/opt/minion/etc", "/opt/minion/etc/featuresBoot.d", "/opt/minion/data" ]
 
 LABEL license="AGPLv3" \
       org.opennms.horizon.version="${MINION_VERSION}" \
@@ -40,13 +40,13 @@ LABEL license="AGPLv3" \
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
-CMD [ "-h" ]
+CMD [ "-f" ]
 
 ##------------------------------------------------------------------------------
 ## EXPOSED PORTS
 ##------------------------------------------------------------------------------
 ## -- OpenNMS KARAF SSH   8201/TCP
 ## -- OpenNMS JMX        18980/TCP
-## -- SNMP Trapd           162/UDP
-## -- Syslog               514/UDP
-EXPOSE 8201 18980 162/udp 514/udp
+## -- SNMP Trapd          1162/UDP
+## -- Syslog              1514/UDP
+EXPOSE 8201 1162/udp 1514/udp

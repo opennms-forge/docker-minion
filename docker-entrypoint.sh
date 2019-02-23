@@ -155,7 +155,7 @@ applyOverlayConfig() {
 
 start() {
     cd ${MINION_HOME}/bin
-    ./karaf server
+    exec ./karaf server
 }
 
 # Evaluate arguments for build script.
