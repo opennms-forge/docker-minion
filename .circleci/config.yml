@@ -110,6 +110,10 @@ jobs:
                 docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:bleeding
                 docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:bleeding
                 ;;
+              release/24.0.0-rc)
+                docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat dockertag)
+                docker push ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat dockertag)
+                ;;
               release*)
                 docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:latest
                 docker tag minion:$(cat dockertag) ${DOCKERHUB_PROJECT_USER}/${DOCKERHUB_PROJECT_NAME}:$(cat dockertag)
@@ -145,6 +149,7 @@ workflows:
             branches:
               only:
                  - master
+                 - release/24.0.0-rc
     jobs:
       - shellcheck
       - build_docker_image:
@@ -155,5 +160,6 @@ workflows:
             branches:
               only:
                  - master
+                 - release/24.0.0-rc
           requires:
             - build_docker_image

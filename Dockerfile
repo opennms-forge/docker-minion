@@ -2,7 +2,7 @@ FROM opennms/openjdk:latest
 
 LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
-ARG MINION_VERSION=develop
+ARG MINION_VERSION="branches/release-24.0.0"
 
 ENV MINION_HOME /opt/minion
 ENV MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
@@ -19,7 +19,7 @@ ENV OPENNMS_BROKER_USER minion
 ENV OPENNMS_BROKER_PASS minion
 
 RUN yum -y --setopt=tsflags=nodocs update && \
-    rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-${MINION_VERSION}-rhel7.noarch.rpm && \
+    rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-${MINION_VERSION/\//-}-rhel7.noarch.rpm && \
     rpm --import http://yum.opennms.org/OPENNMS-GPG-KEY && \
     yum -y install opennms-minion && \
     yum clean all && \
