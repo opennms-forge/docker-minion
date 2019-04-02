@@ -21,6 +21,8 @@ ENV OPENNMS_BROKER_PASS minion
 RUN yum -y --setopt=tsflags=nodocs update && \
     rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-${MINION_VERSION/\//-}-rhel7.noarch.rpm && \
     rpm --import http://yum.opennms.org/OPENNMS-GPG-KEY && \
+    yum -y install https://yum.opennms.org/stable/rhel7/jicmp/jicmp-2.0.3-1.el7.centos.x86_64.rpm && \
+    yum -y install https://yum.opennms.org/stable/rhel7/jicmp6/jicmp6-2.0.2-1.el7.centos.x86_64.rpm && \
     yum -y install opennms-minion && \
     yum clean all && \
     rm -rf /var/cache/yum && \
