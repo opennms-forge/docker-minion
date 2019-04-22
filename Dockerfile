@@ -1,4 +1,4 @@
-FROM opennms/openjdk:latest
+FROM opennms/openjdk:11
 
 LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
@@ -29,7 +29,10 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     chown minion:minion /opt/minion && \
     sed -r -i '/RUNAS/s/.*/export RUNAS=minion/' /etc/sysconfig/minion && \
     chgrp -R 0 /opt/minion && \
-    chmod -R g=u /opt/minion
+    chmod -R g=u /opt/minion && \
+    setcap cap_net_raw+ep ${JAVA_HOME}/bin/java && \
+    echo ${JAVA_HOME}/lib/jli > /etc/ld.so.conf.d/java-latest.conf && \
+    ldconfig
 
 USER 999
 
