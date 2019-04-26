@@ -1,7 +1,7 @@
 ## Supported tags
 
-* `bleeding`, daily bleeding edge version of Horizon Minion 24 using OpenJDK 8u191-jdk
-* `23.0.1-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u191-jdk
+* `bleeding`, daily bleeding edge version of Horizon Minion 25 using OpenJDK 11-jdk
+* `24.0.0-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 11-jdk
 
 ## General Project Information
 
@@ -36,7 +36,7 @@ cd docker-minion
 docker-compose up -d
 ```
 
-The Karaf Shell is exposed on TCP port 8980.
+The Karaf Shell is exposed on TCP port 8201.
 Additionally the ports to receive Syslog (514/UDP) and SNMP Traps (162/UDP) are exposed as well.
 
 To start the Minion and initialize the configuration run with argument `-f`.

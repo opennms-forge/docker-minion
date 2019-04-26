@@ -2,7 +2,7 @@ FROM opennms/openjdk:11
 
 LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
-ARG MINION_VERSION="branches/release-24.0.0"
+ARG MINION_VERSION="stable"
 
 ENV MINION_HOME /opt/minion
 ENV MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
@@ -26,8 +26,9 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     yum -y install opennms-minion && \
     yum clean all && \
     rm -rf /var/cache/yum && \
-    chown minion:minion /opt/minion && \
+    cp /etc/skel/.bash* /opt/minion/ && \
     sed -r -i '/RUNAS/s/.*/export RUNAS=minion/' /etc/sysconfig/minion && \
+    chown -R minion:minion /opt/minion && \
     chgrp -R 0 /opt/minion && \
     chmod -R g=u /opt/minion && \
     setcap cap_net_raw+ep ${JAVA_HOME}/bin/java && \

@@ -2,7 +2,7 @@ version: '2.3'
 
 services:
   minion:
-    image: opennms/minion:bleeding
+    image: opennms/minion:24.0.0-rc
     environment:
       - TZ=Europe/Berlin
       - MINION_ID=my-unique-minion-id
@@ -17,5 +17,5 @@ services:
       retries: 3
     ports:
       - "8201:8201"
-      - "162:162/udp"
-      - "514:514/udp"
+      - "162:1162/udp"
+      - "514:1514/udp"
