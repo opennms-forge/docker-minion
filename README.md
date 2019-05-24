@@ -1,7 +1,7 @@
 ## Supported tags
 
 * `bleeding`, daily bleeding edge version of Horizon Minion 24 using OpenJDK 8u191-jdk
-* `23.0.1-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u191-jdk
+* `24.1.0-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u191-jdk
 
 ## General Project Information
 
@@ -23,10 +23,8 @@ You can provide the Minion configuration in the `.minion.env` file.
 
 ## Requirements
 
-* docker 18.05.0-ce, build 89658be
-* docker-compose 1.21.1, build 5a3f1a3
+* A current docker environment with docker-compose
 * git
-* optional on MacOSX, Docker environment, e.g. Kitematic, boot2docker or similar
 
 ## Usage
 
