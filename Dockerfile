@@ -2,7 +2,7 @@ FROM opennms/openjdk:11.0.3.7-b1
 
 LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
-ARG MINION_VERSION=stable
+ARG MINION_VERSION=develop
 
 ENV MINION_HOME /opt/minion
 ENV MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
