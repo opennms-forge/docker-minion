@@ -1,18 +1,22 @@
+# DEPRECATION of this repository
+
+This repository is deprecated.
+We have moved the build code into the [OpenNMS repository](https://github.com/OpenNMS/opennms/tree/develop/opennms-container/minion).
+The publish and build workflow is now integrated as part of our CI/CD workflow.
+
+We will archive this repository with Horizon 25 and will no longer maintain this repository.
+
+## General Project Information
+
+* Docker Container Image Repository: [DockerHub]
+* Issue- and Bug-Tracking: [JIRA]
+* Source code: [GitHub]
+* Chat: [Web Chat]
+
 ## Supported tags
 
 * `bleeding`, daily bleeding edge version of Horizon Minion 24 using OpenJDK 8u191-jdk
 * `24.1.0-1`, `latest` is a reference to last stable release of Horizon Minion using OpenJDK 8u191-jdk
-
-## General Project Information
-
-* CI/CD Status: [![CircleCI](https://circleci.com/gh/opennms-forge/docker-minion.svg?style=svg)](https://circleci.com/gh/opennms-forge/docker-minion)
-* Container Image Info: [![](https://images.microbadger.com/badges/version/opennms/minion.svg)](https://microbadger.com/images/opennms/minion "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/opennms/minion.svg)](https://microbadger.com/images/opennms/minion "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/license/opennms/minion.svg)](https://microbadger.com/images/opennms/minion "Get your own license badge on microbadger.com")
-* CI/CD System: [CircleCI]
-* Docker Container Image Repository: [DockerHub]
-* Issue- and Bug-Tracking: [GitHub issue]
-* Source code: [GitHub]
-* Chat: [IRC] or [Web Chat]
-* Maintainer: ronny@opennms.org
 
 ## Minion Docker files
 
@@ -219,13 +223,7 @@ volumes:
   - ./etc-overlay:/opt/minion-etc-overlay
 ```
 
-## Support and Issues
-
-Please open issues in the [GitHub issue](https://github.com/opennms-forge/docker-minion) section.
-
-[GitHub]: https://github.com/opennms-forge/docker-minion.git
+[GitHub]: https://github.com/OpenNMS/opennms/tree/develop/opennms-container/minion
 [DockerHub]: https://hub.docker.com/r/opennms/minion
-[GitHub issue]: https://github.com/opennms-forge/docker-minion
-[CircleCI]: https://circleci.com/gh/opennms-forge/docker-minion
+[JIRA]: https://issues.opennms.org
 [Web Chat]: https://chats.opennms.org/opennms-discuss
-[IRC]: irc://freenode.org/#opennms
