@@ -2,7 +2,8 @@ FROM opennms/openjdk:11.0.3.7-b1
 
 LABEL maintainer "Ronny Trommer <ronny@opennms.org>"
 
-ARG MINION_VERSION=develop
+ARG MINION_VERSION=branches/release-24.0.0
+ARG MIRROR_HOST=yum.opennms.org
 
 ENV MINION_HOME /opt/minion
 ENV MINION_CONFIG /opt/minion/etc/org.opennms.minion.controller.cfg
@@ -19,8 +20,12 @@ ENV OPENNMS_BROKER_USER minion
 ENV OPENNMS_BROKER_PASS minion
 
 RUN yum -y --setopt=tsflags=nodocs update && \
-    rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-${MINION_VERSION}-rhel7.noarch.rpm && \
-    rpm --import http://yum.opennms.org/OPENNMS-GPG-KEY && \
+    rpm -Uvh https://${MIRROR_HOST}/repofiles/opennms-repo-${MINION_VERSION/\//-}-rhel7.noarch.rpm && \
+    rpm --import https://${MIRROR_HOST}/OPENNMS-GPG-KEY && \
+    curl https://yum.opennms.org/stable/rhel7/jicmp/jicmp-2.0.3-1.el7.centos.x86_64.rpm -o /tmp/jicmp.rpm && \
+    curl https://yum.opennms.org/stable/rhel7/jicmp6/jicmp6-2.0.2-1.el7.centos.x86_64.rpm -o /tmp/jicmp6.rpm && \
+    yum -y install /tmp/jicmp.rpm && \
+    yum -y install /tmp/jicmp6.rpm && \
     yum -y install opennms-minion && \
     yum clean all && \
     rm -rf /var/cache/yum && \

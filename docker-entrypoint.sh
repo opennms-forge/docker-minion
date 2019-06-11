@@ -10,6 +10,9 @@
 # Cause false/positives
 # shellcheck disable=SC2086
 
+# To avoid issues with OpenShift
+umask 002
+
 MINION_HOME="/opt/minion"
 MINION_CONFIG="/opt/minion/etc/org.opennms.minion.controller.cfg"
 MINION_OVERLAY_ETC="/opt/minion-etc-overlay"
@@ -154,6 +157,7 @@ applyOverlayConfig() {
 }
 
 start() {
+    export KARAF_EXEC="exec"
     cd ${MINION_HOME}/bin
     exec ./karaf server
 }
